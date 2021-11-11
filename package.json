@@ -4,8 +4,10 @@
   "description": "Create a small set of rest API endpoints using NodeJS that can be used for listing the names of Star Wars movies along with their opening crawls and comment counts, adding and listing anonymous comments for a movie, and getting the character list for a movie.",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test"
+    "test": "npm run test",
+    "start": "node bin/www.js"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Lekens/Starwar-movies.git"
@@ -21,5 +23,37 @@
   "bugs": {
     "url": "https://github.com/Lekens/Starwar-movies/issues"
   },
-  "homepage": "https://github.com/Lekens/Starwar-movies#readme"
+  "homepage": "https://github.com/Lekens/Starwar-movies#readme",
+  "dependencies": {
+    "@types/app-root-path": "^1.2.4",
+    "@types/express": "^4.17.13",
+    "@types/mongoose": "^5.11.97",
+    "@types/morgan": "^1.9.3",
+    "@types/nanoid": "^3.0.0",
+    "@types/supertest": "^2.0.11",
+    "app-root-path": "^2.2.1",
+    "debug": "~2.6.9",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "express-validator": "^5.3.1",
+    "http-errors": "~1.6.3",
+    "mongoose": "^6.0.10",
+    "morgan": "^1.10.0",
+    "nanoid": "^3.1.29",
+    "sinon": "^11.1.2",
+    "swagger-ui-express": "2.0.6",
+    "typescript": "^3.2.4",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-typescript": "^7.15.0",
+    "@types/jest": "^27.0.2",
+    "babel-jest": "^27.2.5",
+    "cross-env": "^7.0.3",
+    "jest": "^27.2.5",
+    "prettier": "^2.0.5",
+    "supertest": "^6.1.6"
+  }
 }

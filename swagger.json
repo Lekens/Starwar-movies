@@ -1,0 +1,69 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "STARWAR-MOVIES",
+    "description": "Documentation for STARWAR-MOVIES service",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:8010",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "List",
+      "description": "Manage api calls"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/list": {
+      "get": {
+        "tags": [
+          "List"
+        ],
+        "parameters": [],
+        "summary": "List api",
+        "description": "List api",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Movies listed successfully"
+          },
+          "400": {
+            "description": "Unable to list movies"
+          }
+        }
+      }
+
+    }
+  },
+  "definitions": {
+    "ErrorMessage": {
+      "properties": {
+        "error": {
+          "type": "object"
+        },
+        "status": {
+          "type": "string",
+          "default": "FAILURE"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
