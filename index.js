@@ -1,11 +1,12 @@
 import express from 'express';
 import * as dot from 'dotenv';
-import { logger, Winston } from './config/winston.js';
 import morgan from 'morgan';
 import { readFile } from 'fs/promises';
 
+import { logger, Winston } from 'config/winston.js';
 import * as swaggerUi from 'swagger-ui-express';
 import router from './routes/index.js';
+import moviesRouter from './routes/movies.js';
 
 const swaggerDocument = JSON.parse(await readFile(new URL('./swagger.json', import.meta.url)));
 
@@ -18,11 +19,6 @@ const app = express();
 if (dotenv.error) {
     logger.log('error', `Error with dotEnv setup`);
     throw dotenv.error;
-} else {
-    /**
-     * Set up SQL connection here
-     */
-
 }
 
 // set up environment
@@ -46,6 +42,9 @@ app.use( (req, res, next) => {
 // Assign routers
 app.use('/', router);
 app.use(`/swagger/documentation`, swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(`${process.env.BASE_URL}movies`, moviesRouter);
+app.use(`${process.env.BASE_URL}comment`, comments);
+app.use(`${process.env.BASE_URL}characters`, characters);
 
 // catch 404 and forward to error handler
 app.use((req, res) => {

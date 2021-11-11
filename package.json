@@ -28,6 +28,7 @@
     "@types/app-root-path": "^1.2.4",
     "@types/express": "^4.17.13",
     "@types/morgan": "^1.9.3",
+    "@types/mysql": "^2.15.19",
     "@types/nanoid": "^3.0.0",
     "@types/supertest": "^2.0.11",
     "app-root-path": "^2.2.1",
@@ -39,6 +40,7 @@
     "morgan": "^1.10.0",
     "nanoid": "^3.1.29",
     "sinon": "^11.1.2",
+    "sql": "^0.78.0",
     "swagger-ui-express": "2.0.6",
     "typescript": "^3.2.4",
     "winston": "^3.2.1"

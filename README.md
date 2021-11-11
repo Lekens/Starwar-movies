@@ -32,7 +32,7 @@ cd Starwar-movies
 ```
 NODE_ENV=development
 PORT='8010'
-BASE_URL='/api/'
+BASE_URL='/api/v1'
 APP_BASE_URL='http://localhost:8010'
 
 ```
