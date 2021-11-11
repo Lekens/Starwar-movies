@@ -8,6 +8,7 @@ export const characterController = {
             // sortBy = name, height, gender
             // order = ascending, descending, asc, ascend, desc
             // filterValue = male, female, n/a
+            // page = 1, 2, ...
             const { sortBy, order, filterValue } = req.query;
             if(sortBy) {
                 await getCharacters(req, res, filterValue, {sortBy, order});
