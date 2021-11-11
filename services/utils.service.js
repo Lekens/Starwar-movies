@@ -32,12 +32,26 @@ export const utils = {
     getCommentCount: async (movie) => {
         let query = `SELECT COUNT(id) FROM comments WHERE movie_title="${movie.title}"`;
         sql.query(query, (err, count) => {
-            console.log('ssss', query, count);
             if (err) {
                 return 0;
             }
             return count;
         });
+    },
+    addMetaDataToCharacters: (characters) => {
+        let totalHeight = 0;
+        characters.forEach(character => {
+            totalHeight += parseFloat(character.height) || 0;
+        });
+        return {
+            data: characters,
+            metadata: {
+                total: characters.length,
+                totalHeightCm: `${totalHeight}cm`,
+                totalHeightFeet: `${(totalHeight / 30.48).toFixed(2)}ft`,
+                totalHeightInches: `${(totalHeight / 2.54).toFixed(2)}inches`,
+            }
+        }
     },
     formatMovies: async (movies) => {
         const promises = movies.map(async (movie) => {
@@ -51,5 +65,59 @@ export const utils = {
             }
         });
         return await Promise.all(promises);
+    },
+    filterCharacters: (characters, filter) => {
+        if(!filter) {
+            return characters;
+        }
+        return characters.filter(character => character.gender?.toLowerCase() === filter.toLowerCase());
+    },
+    useSortByCharacters: (characters, sort) => {
+        if(!sort.order) {
+            return characters;
+        } else {
+            console.log('sort.sortBy.toLowerCase()', sort.sortBy.toLowerCase());
+            switch (sort.sortBy.toLowerCase()) {
+                case 'name': {
+                    return characters.sort((characterA, characterB) => {
+                        const orderCap = sort.order.toUpperCase();
+                        if(characterA.name < characterB.name) {
+                            return orderCap.includes('ASC') ? -1 : 1;
+                        }
+                        if(characterA.name > characterB.name) {
+                            return orderCap.includes('ASC') ? 1 : -1;
+                        }
+                        return 0;
+                    });
+                }
+                case 'gender': {
+                    return characters.sort((characterA, characterB) => {
+                        const orderCap = sort.order.toUpperCase();
+                        if(characterA.gender < characterB.gender) {
+                            return orderCap.includes('ASC') ? -1 : 1;
+                        }
+                        if(characterA.gender > characterB.gender) {
+                            return orderCap.includes('ASC') ? 1 : -1;
+                        }
+                        return 0;
+                    });
+                }
+                case 'height': {
+                    return characters.sort((characterA, characterB) => {
+                        const orderCap = sort.order.toUpperCase();
+                        if(parseFloat(characterA.height) < parseFloat(characterB.height)) {
+                            return orderCap.includes('ASC') ? -1 : 1;
+                        }
+                        if(parseFloat(characterA.height) > parseFloat(characterB.height)) {
+                            return orderCap.includes('ASC') ? 1 : -1;
+                        }
+                        return 0;
+                    });
+                }
+                default: {
+                    return characters;
+                }
+            }
+        }
     }
 }
