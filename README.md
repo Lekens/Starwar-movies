@@ -32,8 +32,12 @@ cd Starwar-movies
 ```
 NODE_ENV=development
 PORT='8010'
-BASE_URL='/api/v1'
+BASE_URL='/api/v1/'
+APIKEY='test-api-key-sample'
 APP_BASE_URL='http://localhost:8010'
+GET_MOVIES='https://swapi.dev/api/films/'
+DB_NAME='starwar_movies'
+
 
 ```
 
