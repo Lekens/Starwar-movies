@@ -2,11 +2,14 @@ import express from 'express';
 import * as dot from 'dotenv';
 import morgan from 'morgan';
 import { readFile } from 'fs/promises';
-
-import { logger, Winston } from 'config/winston.js';
 import * as swaggerUi from 'swagger-ui-express';
+
+import { logger, Winston } from './config/winston.js';
 import router from './routes/index.js';
 import moviesRouter from './routes/movies.js';
+import commentsRouter from './routes/comment.js';
+import charactersRouter from './routes/character.js';
+import {utils} from './services/utils.service.js';
 
 const swaggerDocument = JSON.parse(await readFile(new URL('./swagger.json', import.meta.url)));
 
@@ -19,6 +22,8 @@ const app = express();
 if (dotenv.error) {
     logger.log('error', `Error with dotEnv setup`);
     throw dotenv.error;
+} else {
+    utils.setUpDatabase();
 }
 
 // set up environment
@@ -43,8 +48,8 @@ app.use( (req, res, next) => {
 app.use('/', router);
 app.use(`/swagger/documentation`, swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(`${process.env.BASE_URL}movies`, moviesRouter);
-app.use(`${process.env.BASE_URL}comment`, comments);
-app.use(`${process.env.BASE_URL}characters`, characters);
+app.use(`${process.env.BASE_URL}comment`, commentsRouter);
+app.use(`${process.env.BASE_URL}characters`, charactersRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res) => {
@@ -62,4 +67,5 @@ app.use((req, res) => {
     res.locals.error = req.app.get('env') === 'development' ? error : {};
     res.status(500).send(error);
 });
+
 export default app;

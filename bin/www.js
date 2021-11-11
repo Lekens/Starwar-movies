@@ -6,7 +6,7 @@
 import app from '../index.js';
 import debug from 'debug';
 import * as http from "http";
-const debugSetter = debug('Starwar-movies:server');
+const debugSetter = debug('starwar-movies:server');
 
 /**
  * Get port from environment and store in Express.

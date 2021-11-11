@@ -1,6 +1,6 @@
 import express from "express";
-import { moviesController } from 'controllers/movies.js';
-import { controllerService } from 'services/controller.service.js';
+import { moviesController } from '../controllers/movies.js';
+import { controllerService } from '../services/controller.service.js';
 const moviesRouter = express.Router();
 
 moviesRouter.route(`/list`)

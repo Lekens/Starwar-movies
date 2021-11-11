@@ -1,6 +1,6 @@
 import express from "express";
-import { commentController } from 'controllers/comment.js';
-import { controllerService } from 'services/controller.service.js';
+import { commentController } from '../controllers/comment.js';
+import { controllerService } from '../services/controller.service.js';
 const commentsRouter = express.Router();
 
 commentsRouter.route(`/list`)

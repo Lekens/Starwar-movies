@@ -1,6 +1,6 @@
 import express from "express";
-import { characterController } from 'controllers/character.js';
-import { controllerService } from 'services/controller.service.js';
+import { characterController } from '../controllers/character.js';
+import { controllerService } from '../services/controller.service.js';
 const charactersRouter = express.Router();
 
 charactersRouter.route(`/list`)

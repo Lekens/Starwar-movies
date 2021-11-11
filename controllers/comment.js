@@ -1,4 +1,4 @@
-import { responseHandler } from "services/response.service.js";
+import { responseHandler } from "../services/response.service.js";
 
 export const commentController = {
     list: (req, res) => {

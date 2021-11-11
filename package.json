@@ -4,7 +4,7 @@
   "description": "Create a small set of rest API endpoints using NodeJS that can be used for listing the names of Star Wars movies along with their opening crawls and comment counts, adding and listing anonymous comments for a movie, and getting the character list for a movie.",
   "main": "index.js",
   "scripts": {
-    "start": "node bin/www.js",
+    "start": "node ./bin/www.js",
     "test": "cross-env NODE_ENV=test jest --coverage --watchAll=true  --testTimeout=10000",
     "pretest": "cross-env NODE_ENV=test"
   },
@@ -41,6 +41,7 @@
     "express-validator": "^5.3.1",
     "http-errors": "~1.6.3",
     "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
     "nanoid": "^3.1.29",
     "sinon": "^11.1.2",
     "sql": "^0.78.0",

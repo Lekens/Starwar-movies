@@ -44,7 +44,7 @@ npm install
 ```
 
 ```bash
-nodemon bin/www.js 
+nodemon ./bin/www.js
 ```
 or
 
