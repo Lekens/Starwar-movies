@@ -2,7 +2,6 @@ import express from 'express';
 import * as dot from 'dotenv';
 import { logger, Winston } from './config/winston.js';
 import morgan from 'morgan';
-import mongoose from 'mongoose';
 import { readFile } from 'fs/promises';
 
 import * as swaggerUi from 'swagger-ui-express';
