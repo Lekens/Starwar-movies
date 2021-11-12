@@ -40,8 +40,7 @@ export const commentController = {
     },
     saveComment: async (req, res) => {
         try {
-            const { title } = req.params;
-            const { comment } = req.body;
+            const { comment, title } = req.body;
             if(!title || !comment) {
                 responseHandler.sendError(
                     res,

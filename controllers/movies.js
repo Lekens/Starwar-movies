@@ -7,9 +7,10 @@ export const moviesController = {
         try {
             const response = await api.get(process.env.GET_MOVIES);
             if (response) {
-                const formattedMovies = await utils.formatMovies(response.results);
-                responseHandler.sendSuccess(res, 200, 'Movies fetched successfully!',
-                    utils.sortByReleaseDate(formattedMovies));
+                utils.formatMovies(response.results, (formattedMovies) => {
+                    responseHandler.sendSuccess(res, 200, 'Movies fetched successfully!',
+                        utils.sortByReleaseDate(formattedMovies));
+                });
             } else {
                 responseHandler.sendError(res, 400, 'FAILURE', 'Unable to list movies');
             }

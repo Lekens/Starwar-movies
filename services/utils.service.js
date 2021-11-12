@@ -1,3 +1,4 @@
+import eachAsync from 'each-async';
 import sql from '../models/db.js'
 import { logger } from '../config/winston.js';
 import Comment from '../models/comment.model.js';
@@ -33,7 +34,7 @@ export const utils = {
         Comment.getAll(title, callback);
     },
     getCommentCount: async (movie) => {
-        Comment.countComment(movie);
+        await Comment.countComment(movie);
     },
     addMetaDataToCharacters: (characters) => {
         let totalHeight = 0;
@@ -50,9 +51,9 @@ export const utils = {
             }
         }
     },
-    formatMovies: async (movies) => {
-        const promises = movies.map(async (movie) => {
-            const comments = await utils.getCommentCount(movie) || 0;
+    formatMovies: (movies, cb) => {
+        /*const promises = movies.forEach((movie) => {
+            const comments = utils.getCommentCount(movie);
             return {
                 name: movie.title,
                 title: movie.title,
@@ -61,7 +62,38 @@ export const utils = {
                 release_date: movie.release_date
             }
         });
-        return await Promise.all(promises);
+        return await Promise.all(promises);*/
+        try {
+            const updatedMovies = [];
+            eachAsync(movies, (movie, index, done) => {
+                let query = `SELECT COUNT(id) as count FROM comments WHERE movie_title="${movie.title}"`;
+                sql.query(query, (err, count) => {
+                    if (err) {
+                        updatedMovies.push({
+                            name: movie.title,
+                            title: movie.title,
+                            opening_crawl: movie.opening_crawl,
+                            comments_count: 0,
+                            release_date: movie.release_date
+                        });
+                        done();
+                    }
+                    updatedMovies.push({
+                        name: movie.title,
+                        title: movie.title,
+                        opening_crawl: movie.opening_crawl,
+                        comments_count: JSON.parse(JSON.stringify(count))[0].count,
+                        release_date: movie.release_date
+                    });
+                    done();
+                });
+
+            }, () => {
+                cb(updatedMovies);
+            });
+        } catch (e) {
+            console.log('error', e);
+        }
     },
     filterCharacters: (characters, filter) => {
         if(!filter) {

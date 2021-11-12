@@ -45,13 +45,13 @@ Comment.deleteAllByTitle = (title, callback) => {
     });
 };
 
-Comment.countComment = (movie) => {
+Comment.countComment = async (movie) => {
     let query = `SELECT COUNT(id) FROM comments WHERE movie_title="${movie.title}"`;
-    sql.query(query, (err, count) => {
+    await sql.query(query, async (err, count) => {
         if (err) {
             return 0;
         }
-        return count;
+        return await count;
     });
 }
 export default Comment;

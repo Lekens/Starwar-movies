@@ -13,4 +13,9 @@ commentsRouter.route(`/:title`)
     .delete(
         (req, res, next) => controllerService.checkApiKey(req, res, next),
         (req, res, next) => commentController.deleteComments(req, res));
+commentsRouter.route(`/`)
+    .post(
+        (req, res, next) => controllerService.checkApiKey(req, res, next),
+        (req, res, next) => commentController.saveComment(req, res))
+
 export default commentsRouter;
