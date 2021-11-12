@@ -3,8 +3,14 @@ import { commentController } from '../controllers/comment.js';
 import { controllerService } from '../services/controller.service.js';
 const commentsRouter = express.Router();
 
-commentsRouter.route(`/list`)
+commentsRouter.route(`/:title`)
     .get(
         (req, res, next) => controllerService.checkApiKey(req, res, next),
-        (req, res, next) => commentController.list(req, res));
+        (req, res, next) => commentController.list(req, res))
+    .post(
+        (req, res, next) => controllerService.checkApiKey(req, res, next),
+        (req, res, next) => commentController.saveComment(req, res))
+    .delete(
+        (req, res, next) => controllerService.checkApiKey(req, res, next),
+        (req, res, next) => commentController.deleteComments(req, res));
 export default commentsRouter;

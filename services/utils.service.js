@@ -1,6 +1,6 @@
 import sql from '../models/db.js'
 import { logger } from '../config/winston.js';
-
+import Comment from '../models/comment.model.js';
 export const utils = {
     setUpDatabase: () => {
       const dbName = process.env.DB_NAME || 'starwars_movies_fallback';
@@ -9,7 +9,7 @@ export const utils = {
           if (err) {
               throw err;
           }
-          let createTable = `CREATE TABLE IF NOT EXISTS comments (\`id\` int(11) NOT NULL auto_increment, \`comment\` TEXT(500) NOT NULL default '', \`movie_title\`  varchar(250) NOT NULL default '', PRIMARY KEY  (\`id\`))`;
+          let createTable = `CREATE TABLE IF NOT EXISTS comments (\`id\` int(11) NOT NULL auto_increment, \`comment\` TEXT(500) NOT NULL default '', \`movie_title\` varchar(250) NOT NULL default '', \`commenter_ip\`  varchar(250) NOT NULL default '', \`date\` datetime NULL, PRIMARY KEY  (\`id\`))`;
               sql.query(createTable, (error) => {
                   if(error) {
                       throw error;
@@ -29,14 +29,11 @@ export const utils = {
             return 0;
         });
     },
+    listComments: (title, callback) => {
+        Comment.getAll(title, callback);
+    },
     getCommentCount: async (movie) => {
-        let query = `SELECT COUNT(id) FROM comments WHERE movie_title="${movie.title}"`;
-        sql.query(query, (err, count) => {
-            if (err) {
-                return 0;
-            }
-            return count;
-        });
+        Comment.countComment(movie);
     },
     addMetaDataToCharacters: (characters) => {
         let totalHeight = 0;
