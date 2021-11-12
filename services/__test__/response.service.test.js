@@ -11,8 +11,7 @@ describe('responseHandler: response service test', () => {
         expect(actual.json).toBeCalledWith({
                 'code': 400,
                 'error': null,
-                'message': "",
-                'msg': 'Not found error',
+                'message': 'Not found error',
                 'status': 'FAILURE'
         });
     })

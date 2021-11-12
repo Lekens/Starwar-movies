@@ -1,6 +1,5 @@
-import moviesController, {mockMoviesFile} from 'controllers/__mock__/movies';
-jest.mock('../Shortener');
-
+import moviesController, {mockMoviesFile} from '../__mock__/movies';
+jest.mock('../movies');
 
 beforeEach(() => {
    moviesController.mockClear();
