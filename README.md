@@ -36,7 +36,7 @@ BASE_URL='/api/v1/'
 APIKEY='test-api-key-sample'
 APP_BASE_URL='http://localhost:8010'
 GET_MOVIES='https://swapi.dev/api/films/'
-DB_NAME='starwar_movies'
+DB_NAME='heroku_cf247b570d7aeda'
 
 
 ```

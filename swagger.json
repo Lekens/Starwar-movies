@@ -9,7 +9,7 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "host": "localhost:8010",
+  "host": "starwar-movies-lekens.herokuapp.com",
   "basePath": "/api/v1",
   "tags": [
     {
@@ -24,7 +24,7 @@
     }
   ],
   "schemes": [
-    "http"
+    "https"
   ],
   "consumes": [
     "application/json"
