@@ -200,7 +200,7 @@
       }
     },
     "/comment": {
-      "get": {
+      "post": {
         "tags": [
           "Comments"
         ],
@@ -213,7 +213,7 @@
             "type": "string"
           },
           {
-            "name": "title",
+            "name": "commentBody",
             "in": "body",
             "required": true,
             "description": "Comment body",
