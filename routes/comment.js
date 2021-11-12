@@ -7,9 +7,6 @@ commentsRouter.route(`/:title`)
     .get(
         (req, res, next) => controllerService.checkApiKey(req, res, next),
         (req, res, next) => commentController.list(req, res))
-    .post(
-        (req, res, next) => controllerService.checkApiKey(req, res, next),
-        (req, res, next) => commentController.saveComment(req, res))
     .delete(
         (req, res, next) => controllerService.checkApiKey(req, res, next),
         (req, res, next) => commentController.deleteComments(req, res));

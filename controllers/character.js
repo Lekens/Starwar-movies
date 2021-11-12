@@ -19,7 +19,7 @@ export const characterController = {
         } catch (e) {
             responseHandler.sendError(
                 res,
-                400,
+                500,
                 'FAILURE',
                 'Error while fetching characters',
                 e

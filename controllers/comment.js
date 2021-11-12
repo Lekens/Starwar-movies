@@ -31,7 +31,7 @@ export const commentController = {
         } catch (e) {
             responseHandler.sendError(
                 res,
-                400,
+                500,
                 'FAILURE',
                 'Error while fetching all comments',
                 e
@@ -75,14 +75,14 @@ export const commentController = {
                         err
                     );
                 } else {
-                    responseHandler.sendSuccess(res, 200, 'Comment saved successfully!',
+                    responseHandler.sendSuccess(res, 201, 'Comment saved successfully!',
                         data || {});
                 }
             });
         } catch (e) {
             responseHandler.sendError(
                 res,
-                400,
+                500,
                 'FAILURE',
                 'Error while fetching saving comment',
                 e
@@ -117,7 +117,7 @@ export const commentController = {
         } catch (e) {
             responseHandler.sendError(
                 res,
-                400,
+                500,
                 'FAILURE',
                 'Error while deleting all comments',
                 e

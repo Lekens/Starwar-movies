@@ -3,7 +3,7 @@
   "info": {
     "version": "1.0.0",
     "title": "STARWAR-MOVIES",
-    "description": "Documentation for STARWAR-MOVIES service",
+    "description": "Documentation for STARWAR-MOVIES service: API-KEY = test-api-key-sample",
     "license": {
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
@@ -13,12 +13,18 @@
   "basePath": "/api/v1",
   "tags": [
     {
-      "name": "List",
-      "description": "Manage api calls"
+      "name": "Movies",
+      "description": "All apis to manage movies"
+    }, {
+      "name": "Characters",
+      "description": "All APIs to manage characters"
+    }, {
+      "name": "Comments",
+      "description": "All APIs to manage comments"
     }
   ],
   "schemes": [
-    "https"
+    "http"
   ],
   "consumes": [
     "application/json"
@@ -27,30 +33,244 @@
     "application/json"
   ],
   "paths": {
-    "/list": {
+    "/movies/list": {
       "get": {
         "tags": [
-          "List"
+          "Movies"
         ],
-        "parameters": [],
-        "summary": "List api",
-        "description": "List api",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "summary": "List movies from swapi.co",
+        "description": "List all movies",
         "produces": [
           "application/json"
         ],
         "responses": {
           "200": {
-            "description": "Movies listed successfully"
+            "description": "Movies fetched successfully!"
           },
           "400": {
             "description": "Unable to list movies"
+          },
+          "500": {
+            "description": "Error while fetching movies"
           }
         }
       }
 
+    },
+    "/characters/list": {
+      "get": {
+        "tags": [
+          "Characters"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "filterValue",
+            "in": "query",
+            "description": "Filter value: male, female, n/a",
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "Sort by: name, height, gender",
+            "type": "string"
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "Sort order: ascending, descending, asc, ascend, desc",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number(optional)",
+            "type": "number"
+          }
+        ],
+        "summary": "List characters from swapi.co",
+        "description": "List all characters, paginate, sort, filter",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Movies characters fetched successfully!"
+          },
+          "400": {
+            "description": "Unable to list characters"
+          },
+          "500": {
+            "description": "Error while fetching characters"
+          }
+        }
+      }
+
+    },
+    "/comment/{title}": {
+      "get": {
+        "tags": [
+          "Comments"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "in": "path",
+            "required": true,
+            "description": "Title of movie to view it's comments",
+            "type": "string"
+          }
+        ],
+        "summary": "List comments from swapi.co",
+        "description": "List all comments for each movies",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Movie comments fetched successfully!"
+          },
+          "400": {
+            "description": "Error while fetching movie comments"
+          },
+          "500": {
+            "description": "Error while fetching all comments"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Comments"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "in": "path",
+            "required": true,
+            "description": "Title of movie to delete it's comments",
+            "type": "string"
+          }
+        ],
+        "summary": "Delete comments from server",
+        "description": "Delete all comments from server using movie title",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Movie comments deleted successfully!"
+          },
+          "400": {
+            "description": "Error while deleting movie comments"
+          },
+          "500": {
+            "description": "Error while deleting all comments"
+          }
+        }
+      }
+    },
+    "/comment": {
+      "get": {
+        "tags": [
+          "Comments"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "in": "body",
+            "required": true,
+            "description": "Comment body",
+            "schema": {
+              "$ref": "#/definitions/comment"
+            }
+          }
+        ],
+        "summary": "Save comment into server for a movie.",
+        "description": "Save comment for movie",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Comment saved successfully!"
+          },
+          "400": {
+            "description": "Unable to save comment"
+          },
+          "500": {
+            "description": "Error while fetching saving comment"
+          }
+        }
+      }
     }
   },
   "definitions": {
+    "comment": {
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        }
+      },
+      "required": ["title", "comment"]
+    },
+    "SuccessMessage": {
+      "properties": {
+        "data": {
+          "type": "object"
+        },
+        "code": {
+          "type": "number",
+          "default": 200
+        },
+        "status": {
+          "type": "string",
+          "default": "SUCCESS"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
     "ErrorMessage": {
       "properties": {
         "error": {
@@ -60,7 +280,7 @@
           "type": "string",
           "default": "FAILURE"
         },
-        "msg": {
+        "message": {
           "type": "string"
         }
       }
